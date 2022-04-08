@@ -28,6 +28,7 @@ public class FEmbed {
         String id = get_fEmbed_video_ID(url);
         if (id!=null){
             AndroidNetworking.post("https://pelisplushd.me/api/source/"+id)
+                /*este es el propio ... */
                     .build()
                     .getAsString(new StringRequestListener() {
                         @Override
