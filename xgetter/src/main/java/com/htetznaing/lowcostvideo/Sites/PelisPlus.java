@@ -20,7 +20,7 @@ import static com.htetznaing.lowcostvideo.Utils.Utils.sortMe;
 /*
 This is direct link getter for PelisPlus
     By
-Khun Htetz Naing
+jjose
  */
 
 public class PelisPlus {
