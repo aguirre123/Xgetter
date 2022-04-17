@@ -24,6 +24,7 @@ import com.htetznaing.lowcostvideo.Core.GDrive2020;
 import com.htetznaing.lowcostvideo.Model.XModel;
 import com.htetznaing.lowcostvideo.Sites.FB;
 import com.htetznaing.lowcostvideo.Sites.FEmbed;
+import com.htetznaing.lowcostvideo.Sites.PelisPlus;
 import com.htetznaing.lowcostvideo.Sites.FanSubs;
 import com.htetznaing.lowcostvideo.Sites.FileRIO;
 import com.htetznaing.lowcostvideo.Sites.GPhotos;
@@ -61,7 +62,8 @@ public class LowCostVideo {
     private final String vidoza = "https?:\\/\\/(www\\.)?(vidoza)\\.[^\\/,^\\.]{2,}.+";
     private final String uptostream = "https?:\\/\\/(www\\.)?(uptostream|uptobox)\\.[^\\/,^\\.]{2,}.+";
     private final String fansubs = "https?:\\/\\/(www\\.)?(fansubs\\.tv)\\/(v|watch)\\/.+";
-    private final String fembed = "https?:\\/\\/(www\\.)?(pelisplushd|vcdn)\\.[^\\/,^\\.]{2,}\\/(v|f)\\/.+";
+    private final String fembed = "https?:\\/\\/(www\\.)?(fembed|vcdn)\\.[^\\/,^\\.]{2,}\\/(v|f)\\/.+";
+    private final String pelisplushd = "https?:\\/\\/(www\\.)?(pelisplushd|vcdn)\\.[^\\/,^\\.]{2,}\\/(v|f)\\/.+";
     private final String megaup = "https?:\\/\\/(www\\.)?(megaup)\\.[^\\/,^\\.]{2,}\\/.+";
     private final String gounlimited = "https?:\\/\\/(www\\.)?(gounlimited)\\.[^\\/,^\\.]{2,}\\/.+";
     private final String cocoscope = "https?:\\/\\/(www\\.)?(cocoscope)\\.[^\\/,^\\.]{2,}\\/(watch\\?v).+";
@@ -115,6 +117,8 @@ public class LowCostVideo {
             FanSubs.fetch(url,onComplete);
         } else if (check(fembed,url)){
             FEmbed.fetch(url,onComplete);
+        } else if (check(pelisplushd,url)){
+            PelisPlus.fetch(url,onComplete);
         } else if (check(filerio,url)){
             FileRIO.fetch(url,onComplete);
         } else if (DailyMotionUtils.getDailyMotionID(url)!=null){
