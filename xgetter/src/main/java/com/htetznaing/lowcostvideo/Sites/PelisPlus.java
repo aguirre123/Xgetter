@@ -19,8 +19,8 @@ import static com.htetznaing.lowcostvideo.Utils.Utils.sortMe;
 
 /*
 This is direct link getter for PelisPlus
-    By
-jjose
+    By 
+    emmanuel
  */
 
 public class PelisPlus {
