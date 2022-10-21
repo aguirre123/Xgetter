@@ -2,6 +2,7 @@ package com.htetznaing.lowcostvideo.Sites;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.OkHttpResponseListener;
 import com.androidnetworking.interfaces.StringRequestListener;
 import com.htetznaing.lowcostvideo.LowCostVideo;
 import com.htetznaing.lowcostvideo.Model.XModel;
@@ -20,28 +21,37 @@ import static com.htetznaing.lowcostvideo.Utils.Utils.sortMe;
 /*
 This is direct link getter for Fembed
     By
-Khun Htetz Naing
+emmanuel
  */
+import okhttp3.Response;
 
 public class FEmbed {
     public static void fetch(String url, final LowCostVideo.OnTaskCompleted onComplete){
         String id = get_fEmbed_video_ID(url);
         if (id!=null){
-            AndroidNetworking.post("https://vanfem.com/api/source/"+id)
-                /*este es el propio ... */
+           AndroidNetworking.get(url)
                     .build()
-                    .getAsString(new StringRequestListener() {
+                    .getAsOkHttpResponse(new OkHttpResponseListener() {
                         @Override
-                        public void onResponse(String response) {
-                            ArrayList<XModel> xModels = parse(response);
-                            if (xModels!=null){
-                                onComplete.onTaskCompleted(sortMe(xModels),true);
-                            }else onComplete.onError();
-                        }
+                        public void onResponse(Response response) {
+                            final String regex = "url=(.*?)/v/";
+                            final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
+                            final Matcher matcher = pattern.matcher(response.toString());
+                            if (matcher.find()) {
+                                AndroidNetworking.post(matcher.group(1)+"/api/source/"+id)
+                                    .build()
+                                    .getAsString(new StringRequestListener() {
+                                        @Override
+                                        public void onResponse(String response) {
+                                            ArrayList<XModel> xModels = parse(response);
+                                            if (xModels!=null){
+                                                onComplete.onTaskCompleted(sortMe(xModels),true);
+                                            }else onComplete.onError();
+                                        }
 
-                        @Override
-                        public void onError(ANError anError) {
-                            onComplete.onError();
+                                        @Override
+                                        public void onError(ANError anError) {
+                                            onComplete.onError();
                         }
                     });
         }else onComplete.onError();
