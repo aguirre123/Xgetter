@@ -62,8 +62,8 @@ public class LowCostVideo {
     private final String vidoza = "https?:\\/\\/(www\\.)?(vidoza)\\.[^\\/,^\\.]{2,}.+";
     private final String uptostream = "https?:\\/\\/(www\\.)?(uptostream|uptobox)\\.[^\\/,^\\.]{2,}.+";
     private final String fansubs = "https?:\\/\\/(www\\.)?(fansubs\\.tv)\\/(v|watch)\\/.+";
-    private final String fembed = "https?:\\/\\/(www\\.)?(fembed|vcdn)\\.[^\\/,^\\.]{2,}\\/(v|f)\\/.+";
-    private final String pelisplushd = "https?:\\/\\/(www\\.)?(pelisplushd|Fembed|vanfem|fembed|vcdn)\\.[^\\/,^\\.]{2,}\\/(v|f)\\/.+";
+    private final String fembed = "https?:\\/\\/(www\\.)?(pelisplushd|Fembed|vanfem|fembed|suzihaza|vcdn)\\.[^\\/,^\\.]{2,}\\/(v|f)\\/.+";
+    private final String pelisplushd = "https?:\\/\\/(www\\.)?(pelisplushd|Fembed|vanfem|fembed|suzihaza|vcdn)\\.[^\\/,^\\.]{2,}\\/(v|f)\\/.+";
     private final String megaup = "https?:\\/\\/(www\\.)?(megaup)\\.[^\\/,^\\.]{2,}\\/.+";
     private final String gounlimited = "https?:\\/\\/(www\\.)?(gounlimited)\\.[^\\/,^\\.]{2,}\\/.+";
     private final String cocoscope = "https?:\\/\\/(www\\.)?(cocoscope)\\.[^\\/,^\\.]{2,}\\/(watch\\?v).+";
