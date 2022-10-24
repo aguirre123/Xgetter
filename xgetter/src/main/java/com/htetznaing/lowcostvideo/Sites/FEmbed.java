@@ -27,7 +27,7 @@ import okhttp3.Response;
 
 public class FEmbed {
     public static void fetch(String url, final LowCostVideo.OnTaskCompleted onComplete){
-        String id = get_fEmbed_video_ID(url);
+        final String id = get_fEmbed_video_ID(url);
         if (id!=null){
            AndroidNetworking.get(url)
                     .build()
@@ -38,51 +38,60 @@ public class FEmbed {
                             final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
                             final Matcher matcher = pattern.matcher(response.toString());
                             if (matcher.find()) {
-                                AndroidNetworking.post(matcher.group(1)+"/api/source/"+id)
-                                    .build()
-                                    .getAsString(new StringRequestListener() {
-                                        @Override
-                                        public void onResponse(String response) {
-                                            ArrayList<XModel> xModels = parse(response);
-                                            if (xModels!=null){
-                                                onComplete.onTaskCompleted(sortMe(xModels),true);
-                                            }else onComplete.onError();
-                                        }
+                                AndroidNetworking.post(matcher.group(1) + "/api/source/" + id)
+                                        .build()
+                                        .getAsString(new StringRequestListener() {
+                                            @Override
+                                            public void onResponse(String response) {
+                                                ArrayList<XModel> xModels = parse(response);
+                                                if (xModels != null) {
+                                                    onComplete.onTaskCompleted(sortMe(xModels), true);
+                                                } else onComplete.onError();
+                                            }
 
-                                        @Override
-                                        public void onError(ANError anError) {
-                                            onComplete.onError();
+                                            @Override
+                                            public void onError(ANError anError) {
+                                                onComplete.onError();
+                                            }
+                                        });
+
+                            }
+                        }
+
+                        @Override
+                        public void onError(ANError anError) {
+                            onComplete.onError();
                         }
                     });
-        }else onComplete.onError();
+        } else onComplete.onError();
     }
 
-    private static ArrayList<XModel> parse(String response){
-        ArrayList<XModel> xModels = new ArrayList<>();
-        try {
-            JSONObject jsonObject = new JSONObject(response);
-            if (jsonObject.has("data")){
-                JSONArray jsonArray = jsonObject.getJSONArray("data");
-                for (int i=0;i<jsonArray.length();i++){
-                    JSONObject object = jsonArray.getJSONObject(i);
-                    Utils.putModel(object.getString("file"),object.getString("label"),xModels);
-                }
-                return xModels;
-            }else return null;
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+                        private static ArrayList<XModel> parse(String response) {
+                            ArrayList<XModel> xModels = new ArrayList<>();
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                if (jsonObject.has("data")) {
+                                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        JSONObject object = jsonArray.getJSONObject(i);
+                                        Utils.putModel(object.getString("file"), object.getString("label"), xModels);
+                                    }
+                                    return xModels;
+                                } else return null;
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            return null;
+                        }
 
 
-    private static String get_fEmbed_video_ID(String string){
-        final String regex = "(v|f)(\\/|=)(.+)(\\/|&)?";
-        final Pattern pattern = Pattern.compile(regex);
-        final Matcher matcher = pattern.matcher(string);
-        if (matcher.find()) {
-            return matcher.group(3).replaceAll("&|/","");
-        }
-        return null;
-    }
-}
+                        private static String get_fEmbed_video_ID(String string) {
+                            final String regex = "(v|f)(\\/|=)(.+)(\\/|&)?";
+                            final Pattern pattern = Pattern.compile(regex);
+                            final Matcher matcher = pattern.matcher(string);
+                            if (matcher.find()) {
+                                return matcher.group(3).replaceAll("&|/", "");
+                            }
+                            return null;
+                        }
+                    }
