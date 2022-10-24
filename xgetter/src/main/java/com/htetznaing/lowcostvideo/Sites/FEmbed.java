@@ -54,6 +54,14 @@ public class FEmbed {
                                             onComplete.onError();
                         }
                     });
+                                   }
+                        }
+
+                        @Override
+                        public void onError(ANError anError) {
+                            onComplete.onError();
+                        }
+                    });
         }else onComplete.onError();
     }
 
