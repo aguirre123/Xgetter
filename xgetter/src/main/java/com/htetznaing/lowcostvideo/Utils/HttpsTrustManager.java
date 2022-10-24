@@ -1,4 +1,4 @@
-;
+package com.htetznaing.lowcostvideo.Utils;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -15,7 +15,7 @@ public class HttpsTrustManager {
     public static OkHttpClient getUnsafeOkHttpClient() {
         try {
             // Create a trust manager that does not validate certificate chains
-            final TrustManager[] trustAllCerts = new TrustManager[] {
+            final TrustManager[] trustAllCerts = new TrustManager[]{
                     new X509TrustManager() {
                         @Override
                         public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) {
@@ -53,3 +53,5 @@ public class HttpsTrustManager {
             throw new RuntimeException(e);
         }
     }
+}
+
